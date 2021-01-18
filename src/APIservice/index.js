@@ -1,0 +1,1 @@
+export { fetchTrendMoviesAPI, fetchQueryMoviesAPI } from './APIservice';

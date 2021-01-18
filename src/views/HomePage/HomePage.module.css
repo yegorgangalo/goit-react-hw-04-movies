@@ -1,0 +1,23 @@
+.mainTitle {
+  margin-bottom: 20px;
+  font-size: xx-large;
+  font-weight: 700;
+}
+
+/* .movieList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -30px;
+}
+
+.movieItem {
+  width: calc((100% - 3 * 30px - 2 * 15px) / 4);
+  margin-left: 30px;
+  margin-bottom: 40px;
+}
+
+.movieTitle {
+  margin-top: 5px;
+  font-size: large;
+  font-weight: 600;
+} */
