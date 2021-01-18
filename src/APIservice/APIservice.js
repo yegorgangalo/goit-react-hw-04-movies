@@ -9,7 +9,7 @@ export function fetchTrendMoviesAPI () {
         .then(response => {
             return response.ok ?
                 response.json() :
-                Promise.reject(new Error(`There is no trend movies`));
+                Promise.reject(new Error(`There are no trend movies`));
         })
 }
 
@@ -19,6 +19,36 @@ export function fetchQueryMoviesAPI (query) {
         .then(response => {
             return response.ok ?
                 response.json() :
-                Promise.reject(new Error(`There is no trend movies`));
+                Promise.reject(new Error(`There is no movie with this name`));
+        })
+}
+
+export function fetchMovieDetailsAPI (movieID) {
+    const url = `${BASE_URL}/movie/${movieID}?api_key=${API_KEY}`;
+    return fetch(url)
+        .then(response => {
+            return response.ok ?
+                response.json() :
+                Promise.reject(new Error(`There are no details about this movie`));
+        })
+}
+
+export function fetchMovieCastAPI (movieID) {
+    const url = `${BASE_URL}/movie/${movieID}/credits?api_key=${API_KEY}`;
+    return fetch(url)
+        .then(response => {
+            return response.ok ?
+                response.json() :
+                Promise.reject(new Error(`There are no details about this movie`));
+        })
+}
+
+export function fetchMovieReviewsAPI (movieID) {
+    const url = `${BASE_URL}/movie/${movieID}/reviews?api_key=${API_KEY}`;
+    return fetch(url)
+        .then(response => {
+            return response.ok ?
+                response.json() :
+                Promise.reject(new Error(`There are no details about this movie`));
         })
 }

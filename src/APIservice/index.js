@@ -1,1 +1,1 @@
-export { fetchTrendMoviesAPI, fetchQueryMoviesAPI } from './APIservice';
+export { fetchTrendMoviesAPI, fetchQueryMoviesAPI, fetchMovieDetailsAPI, fetchMovieCastAPI, fetchMovieReviewsAPI } from './APIservice';

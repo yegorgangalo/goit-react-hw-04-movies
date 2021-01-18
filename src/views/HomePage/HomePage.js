@@ -7,7 +7,9 @@ function HomePage() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetchTrendMoviesAPI().then(({results}) => setMovies(results));
+        fetchTrendMoviesAPI()
+            .then(({ results }) => setMovies(results))
+            .catch(error => console.log(error));
     }, [])
 
     return (

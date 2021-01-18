@@ -2,15 +2,18 @@ import { useState, useEffect } from 'react';
 import MovieList from '../../components/MovieList';
 import { fetchQueryMoviesAPI } from '../../APIservice';
 import {DebounceInput} from 'react-debounce-input';
-// import s from './MoviesPage.module.css';
-// import { toast } from 'react-toastify';
+import s from './MoviesPage.module.css';
+import { toast } from 'react-toastify';
 
 function MoviesPage() {
     const [inputQuery, setInputQuery] = useState('');
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        inputQuery && fetchQueryMoviesAPI(inputQuery).then(({results}) => setMovies(results));
+        inputQuery && fetchQueryMoviesAPI(inputQuery)
+            .then(({ results }) => results.length ?
+                setMovies(results) :
+                toast.warn('There is no movie with this name'));
     }, [inputQuery])
 
     const handleInputChange = ({ target }) => setInputQuery(target.value);
@@ -19,7 +22,7 @@ function MoviesPage() {
         <>
             <DebounceInput
               debounceTimeout={500}
-              className="SearchForm-input"
+              className={s.searchInput}
               type="text"
               autoComplete="off"
               autoFocus
