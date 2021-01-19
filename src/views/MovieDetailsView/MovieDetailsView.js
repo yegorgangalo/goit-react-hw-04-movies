@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Link, useParams, Route, useRouteMatch } from 'react-router-dom';
+import { NavLink, useParams, Route, useRouteMatch, useHistory } from 'react-router-dom';
 import { fetchMovieDetailsAPI } from '../../APIservice';
 import Cast from '../../components/Cast';
 import Reviews from '../../components/Reviews';
@@ -12,8 +12,8 @@ function MovieDetailsView() {
     const [error, setError] = useState('');
     const { moviesId } = useParams();
     const { url, path } = useRouteMatch();
-    const match = useRouteMatch();
-    console.log(match);
+    const history = useHistory();
+
 
     useEffect(() => {
         fetchMovieDetailsAPI(moviesId)
@@ -26,7 +26,9 @@ function MovieDetailsView() {
 
     return (
         <main>
-            <Link to="/" className={s.btnGoBack}>Go Back</Link>
+            <button type="button"
+                onClick={history.goBack}
+                className={s.btnGoBack}>Go Back</button>
             {movieDetails && (
                 <>
                 <section className={s.sectionMainInfo}>
