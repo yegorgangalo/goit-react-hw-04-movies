@@ -4,10 +4,19 @@ import { fetchMovieDetailsAPI } from '../../APIservice';
 import Cast from '../../components/Cast';
 import Reviews from '../../components/Reviews';
 import s from './MovieDetailsView.module.css';
+import { ImSpinner9 } from 'react-icons/im';
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
+const { IDLE, PENDING, REJECTED, RESOLVED } = {
+    IDLE: 'idle',
+    PENDING: 'pending',
+    REJECTED: 'rejected',
+    RESOLVED: 'resolved',
+}
+
 function MovieDetailsView() {
+    const [status, setStatus] = useState(IDLE);
     const [movieDetails, setMovieDetails] = useState('');
     const [error, setError] = useState('');
     const { moviesId } = useParams();
@@ -16,9 +25,21 @@ function MovieDetailsView() {
 
 
     useEffect(() => {
+        setStatus(PENDING);
         fetchMovieDetailsAPI(moviesId)
-            .then(movieInfo => setMovieDetails(movieInfo))
-            .catch(error=>setError(error));
+            // .then(movieInfo => setMovieDetails(movieInfo))
+            // .catch(error => setError(error));
+            .then(movieInfo => {
+                if (!movieInfo) {
+                    return Promise.reject(new Error(`Something wrong. Reload the page, please.`));
+                }
+                setMovieDetails(movieInfo);
+                setStatus(RESOLVED);
+            })
+            .catch(error => {
+                setError(error);
+                setStatus(REJECTED);
+            })
     }, [moviesId])
 
     const { poster_path, title, name, overview, genres, vote_average, release_date } = movieDetails;
@@ -29,7 +50,9 @@ function MovieDetailsView() {
             <button type="button"
                 onClick={history.goBack}
                 className={s.btnGoBack}>Go Back</button>
-            {movieDetails && (
+            {status === PENDING && <ImSpinner9 size="36" className={s.iconSpin} />}
+            {status === REJECTED && <h1>{error.message}</h1> }
+            {status===RESOLVED && (
                 <>
                 <section className={s.sectionMainInfo}>
                 <img src={poster_path && `${BASE_IMG_URL}${poster_path}`} alt={title} className={s.poster}/>

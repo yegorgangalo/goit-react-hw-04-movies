@@ -4,20 +4,20 @@
   font-weight: 700;
 }
 
-/* .movieList {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -30px;
+.iconSpin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  fill: #000000;
+  animation: icon-spin 2s infinite linear;
 }
 
-.movieItem {
-  width: calc((100% - 3 * 30px - 2 * 15px) / 4);
-  margin-left: 30px;
-  margin-bottom: 40px;
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
 }
-
-.movieTitle {
-  margin-top: 5px;
-  font-size: large;
-  font-weight: 600;
-} */
