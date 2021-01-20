@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import MovieList from '../../components/MovieList';
 import { fetchQueryMoviesAPI } from '../../APIservice';
 import {DebounceInput} from 'react-debounce-input';
@@ -15,16 +16,25 @@ const { IDLE, PENDING, REJECTED, RESOLVED } = {
 
 function MoviesPage() {
     const [status, setStatus] = useState(IDLE);
-    const [inputQuery, setInputQuery] = useState('');
     const [movies, setMovies] = useState([]);
 
+    const location = useLocation();
+    const history = useHistory();
+
     useEffect(() => {
-        if(!inputQuery){return}
-        setStatus(PENDING);
-        fetchQueryMoviesAPI(inputQuery)
+    const query = new URLSearchParams(location.search).get('q');
+    if (!query) {
+        return
+    }
+    setStatus(PENDING);
+    fetchMovieByQuery(query);
+  }, [location.search]);
+
+    const fetchMovieByQuery = (value) => {
+        fetchQueryMoviesAPI(value)
             .then(({ results }) => {
             if (!results.length) {
-                  return Promise.reject(new Error(`There is no movie with name: ${inputQuery}`));
+                  return Promise.reject(new Error(`There is no movie with name: ${value}`));
               }
             setMovies(results);
             setStatus(RESOLVED);
@@ -33,9 +43,11 @@ function MoviesPage() {
                 toast.warn(error.message);
                 setStatus(REJECTED);
             })
-    }, [inputQuery])
+    }
 
-    const handleInputChange = ({ target }) => setInputQuery(target.value);
+    const handleInputChange = ({ target }) => {
+        history.push({ ...location, search: `q=${target.value}` });
+    }
 
         return (
             <>
@@ -46,7 +58,6 @@ function MoviesPage() {
                     autoComplete="off"
                     autoFocus
                     placeholder="Search movies"
-                    value={inputQuery}
                     onChange={handleInputChange}
                 />
                 {status===PENDING && <ImSpinner9 size="36" className={s.iconSpin} />}
