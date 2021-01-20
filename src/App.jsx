@@ -1,32 +1,34 @@
+import { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Navigation from './components/Navigation'
-import HomePage from './views/HomePage';
-import MoviesPage from './views/MoviesPage';
-import MovieDetailsView from './views/MovieDetailsView';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Navigation from './components/Navigation'
+const HomePage = lazy(() => import('./views/HomePage' /* webpackChunkName: "homepage" */));
+const MoviesPage = lazy(() => import('./views/MoviesPage' /* webpackChunkName: "moviepage" */));
+const MovieDetailsView = lazy(() => import('./views/MovieDetailsView' /* webpackChunkName: "moviedetailsview" */));
 
 function App() {
     return (<>
         <Navigation />
-        <Switch>
-            <Route path="/" exact>
-                <HomePage/>
-            </Route>
+        <Suspense fallback={<span>Is Loading...</span>}>
+            <Switch>
+                <Route path="/" exact>
+                    <HomePage/>
+                </Route>
 
-            <Route path="/movies" exact>
-                <MoviesPage/>
-            </Route>
+                <Route path="/movies/:moviesId">
+                  <MovieDetailsView />
+                </Route>
 
-            <Route path="/movies/:moviesId">
-              <MovieDetailsView />
-            </Route>
+                <Route path="/movies" exact>
+                    <MoviesPage/>
+                </Route>
 
-            <Route>
-                <HomePage/>
-            </Route>
-        </Switch>
+                <Route>
+                    <HomePage/>
+                </Route>
+            </Switch>
+        </Suspense>
         <ToastContainer autoClose={3000}/>
      </>)
 }

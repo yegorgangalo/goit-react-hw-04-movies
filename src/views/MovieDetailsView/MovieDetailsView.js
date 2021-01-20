@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { NavLink, useParams, Route, useRouteMatch, useHistory } from 'react-router-dom';
-import { fetchMovieDetailsAPI } from '../../APIservice';
-import Cast from '../../components/Cast';
-import Reviews from '../../components/Reviews';
-import s from './MovieDetailsView.module.css';
 import { ImSpinner9 } from 'react-icons/im';
+import { fetchMovieDetailsAPI } from '../../APIservice';
+import s from './MovieDetailsView.module.css';
+const Cast = lazy(() => import('../../components/Cast' /* webpackChunkName: "cast" */));
+const Reviews = lazy(() => import('../../components/Reviews' /* webpackChunkName: "reviews" */));
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
@@ -27,8 +27,6 @@ function MovieDetailsView() {
     useEffect(() => {
         setStatus(PENDING);
         fetchMovieDetailsAPI(moviesId)
-            // .then(movieInfo => setMovieDetails(movieInfo))
-            // .catch(error => setError(error));
             .then(movieInfo => {
                 if (!movieInfo) {
                     return Promise.reject(new Error(`Something wrong. Reload the page, please.`));
@@ -79,12 +77,14 @@ function MovieDetailsView() {
                 </>
             )}
             {error && (<h2>{error.message}</h2>)}
-            <Route path={`${path}/cast`}>
-                <Cast moviesId={moviesId}/>
-            </Route>
-            <Route path={`${path}/reviews`}>
-                <Reviews moviesId={moviesId}/>
-            </Route>
+            <Suspense fallback={<span>Loading...</span>}>
+                <Route path={`${path}/cast`}>
+                    <Cast moviesId={moviesId}/>
+                </Route>
+                <Route path={`${path}/reviews`}>
+                    <Reviews moviesId={moviesId}/>
+                </Route>
+            </Suspense>
         </main>)
 }
 
