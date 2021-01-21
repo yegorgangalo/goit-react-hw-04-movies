@@ -25,10 +25,6 @@ function MovieDetailsView() {
     const history = useHistory();
     const location = useLocation();
 
-    console.log(location.state);
-    console.log('url', url);
-
-
     useEffect(() => {
         setStatus(PENDING);
         fetchMovieDetailsAPI(moviesId)
