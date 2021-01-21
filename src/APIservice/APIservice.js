@@ -13,8 +13,8 @@ export function fetchTrendMoviesAPI () {
         })
 }
 
-export function fetchQueryMoviesAPI (query) {
-    const url = `${BASE_URL}/search/movie/?api_key=${API_KEY}&query=${query}`;
+export function fetchQueryMoviesAPI (query, page=1) {
+    const url = `${BASE_URL}/search/movie/?api_key=${API_KEY}&query=${query}&page=${page}`;
     return fetch(url)
         .then(response => {
             return response.ok ?
@@ -39,7 +39,7 @@ export function fetchMovieCastAPI (movieID) {
         .then(response => {
             return response.ok ?
                 response.json() :
-                Promise.reject(new Error(`There are no details about this movie`));
+                Promise.reject(new Error(`There is no info about casts`));
         })
 }
 
@@ -49,6 +49,6 @@ export function fetchMovieReviewsAPI (movieID) {
         .then(response => {
             return response.ok ?
                 response.json() :
-                Promise.reject(new Error(`There are no details about this movie`));
+                Promise.reject(new Error(`There are no reviews`));
         })
 }

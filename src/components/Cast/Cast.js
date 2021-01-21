@@ -12,7 +12,11 @@ function Cast({moviesId}) {
 
     useEffect(() => {
         fetchMovieCastAPI(moviesId)
-            .then(({cast}) => setCast(cast))
+            .then(({ cast }) => {
+                return cast.length ?
+                    setCast(cast) :
+                    Promise.reject(new Error('There are no casts'));
+            })
             .catch(error=>setError(error));
     }, [moviesId])
 
