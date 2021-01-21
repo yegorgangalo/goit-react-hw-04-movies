@@ -8,7 +8,7 @@ import s from './Reviews.module.css';
 function Reviews({moviesId}) {
     const [reviews, setReviews] = useState('');
     const [error, setError] = useState('');
-    console.log(reviews);
+    // console.log(reviews);
 
     useEffect(() => {
         fetchMovieReviewsAPI(moviesId)

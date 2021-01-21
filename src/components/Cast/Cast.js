@@ -8,7 +8,7 @@ const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w185';
 function Cast({moviesId}) {
     const [cast, setCast] = useState('');
     const [error, setError] = useState('');
-    console.log(cast);
+    // console.log(cast);
 
     useEffect(() => {
         fetchMovieCastAPI(moviesId)
