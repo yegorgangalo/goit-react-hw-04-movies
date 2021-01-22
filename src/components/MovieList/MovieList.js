@@ -8,7 +8,8 @@ function MovieList({ movies }) {
 
     return (
         <ul className={s.movieList}>
-            {movies.map(({id, title, name, poster_path}) =>
+            {movies.map(({ id, title, name, poster_path }) =>
+                poster_path &&
                 <li key={id} className={s.movieItem}>
                     <Link to={{pathname:`/movies/${id}`, state: {from: location}}}>
                         <img src={`${BASE_IMG_URL}${poster_path}`} alt={title} />
