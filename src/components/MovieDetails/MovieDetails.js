@@ -7,18 +7,20 @@ function MovieDetails({ movieDetails }) {
     const releaseYear = release_date.split('-')[0];
 
     return (<section className={s.sectionMainInfo}>
-                <img src={poster_path && `${BASE_IMG_URL}${poster_path}`} alt={title} className={s.poster}/>
+                {poster_path && <img src={`${BASE_IMG_URL}${poster_path}`} alt={title} className={s.poster}/>}
                 <div className={s.blockInfo}>
                     <h2 className={s.movieTitle}> {`${title ? title : name} (${releaseYear})`} </h2>
                     <p>User Score: {`${Number(vote_average)*10}%`}</p>
                     <h3>Overview</h3>
                     <p>{overview}</p>
-                    <h3>Genres</h3>
-                    <ul className={s.genres}>
-                        {genres.map( ({id, name}) =>
-                            <li key={id}>{name}</li>
-                        )}
-                    </ul>
+                    {genres.length>0 && (<>
+                        <h3>Genres</h3>
+                        <ul className={s.genres}>
+                            {genres.map( ({id, name}) =>
+                                <li key={id}>{name}</li>
+                            )}
+                        </ul>
+                    </>)}
                 </div>
                 </section>)
 }

@@ -14,8 +14,8 @@ export function fetchTrendMoviesAPI (page=1) {
 }
 
 export function fetchQueryMoviesAPI (query, page=1) {
-    const url = `${BASE_URL}/search/movie/?api_key=${API_KEY}&query=${query}&page=${page}`;
-    return fetch(url)
+    // const url = `${BASE_URL}/search/movie/?api_key=${API_KEY}&query=${query}&page=${page}`;
+    return fetch(`https://api.themoviedb.org/3/search/movie?api_key=1b1c18abd6b8f6ca28c43d3db578a793&query=${query}&${page}`)
         .then(response => {
             return response.ok ?
                 response.json() :

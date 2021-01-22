@@ -47,7 +47,7 @@ function MovieDetailsView() {
             {status === PENDING && <ImSpinner9 size="36" className={s.iconSpin} />}
             {status === REJECTED && <h1>{error.message}</h1> }
             {status===RESOLVED && (
-                <>
+                <div className={s.box}>
                 <button type="button"
                 onClick={ () => history.push(location?.state?.from || '/')}
                 className={s.btnGoBack}>Go Back</button>
@@ -74,7 +74,7 @@ function MovieDetailsView() {
                         <Reviews moviesId={moviesId}/>
                     </Route>
                 </Suspense>
-            </>
+            </div>
             )}
         </main>)
 }
