@@ -19,6 +19,8 @@ function MoviesPage() {
     const [status, setStatus] = useState(IDLE);
     const [movies, setMovies] = useState([]);
     const [activePage, setActivePage] = useState(1);
+    const [totalMovies, setTotalMovies] = useState(0);
+    console.log(movies);
 
     const location = useLocation();
     const history = useHistory();
@@ -34,11 +36,12 @@ function MoviesPage() {
 
     const fetchMovieByQuery = (value, page) => {
         fetchQueryMoviesAPI(value, page)
-            .then(({ results }) => {
+            .then(({ results, total_pages, total_results }) => {
             if (!results.length) {
                   return Promise.reject(new Error(`There is no movie with name: ${value}`));
               }
             setMovies(results);
+            setTotalMovies(total_results);
             setStatus(RESOLVED);
           })
             .catch(error => {
@@ -57,7 +60,7 @@ function MoviesPage() {
     }
 
         return (
-            <>
+            <main>
                 <DebounceInput
                     debounceTimeout={500}
                     className={s.searchInput}
@@ -69,14 +72,14 @@ function MoviesPage() {
                 />
                 <Pagination
                   activePage={activePage}
-                  itemsCountPerPage={10}
-                  totalItemsCount={450}
-                  pageRangeDisplayed={5}
+                  itemsCountPerPage={20}
+                  totalItemsCount={totalMovies}
+                  pageRangeDisplayed={8}
                   onChange={handlePageChange}
                 />
                 {status===PENDING && <ImSpinner9 size="36" className={s.iconSpin} />}
                 {status === RESOLVED && <MovieList movies={movies} />}
-            </>)
+            </main>)
 
 }
 
