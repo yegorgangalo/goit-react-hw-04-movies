@@ -20,7 +20,6 @@ function MoviesPage() {
     const [movies, setMovies] = useState([]);
     const [activePage, setActivePage] = useState(1);
     const [totalMovies, setTotalMovies] = useState(0);
-    console.log(movies);
 
     const location = useLocation();
     const history = useHistory();

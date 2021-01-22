@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
-// import { Link, useParams, Route, useRouteMatch } from 'react-router-dom';
 import { fetchMovieReviewsAPI } from '../../APIservice';
 import s from './Reviews.module.css';
-
-// const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w185';
 
 function Reviews({moviesId}) {
     const [reviews, setReviews] = useState('');

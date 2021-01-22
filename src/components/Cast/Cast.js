@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import { Link, useParams, Route, useRouteMatch } from 'react-router-dom';
 import { fetchMovieCastAPI } from '../../APIservice';
 import s from './Cast.module.css';
 
@@ -8,7 +7,6 @@ const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w185';
 function Cast({moviesId}) {
     const [cast, setCast] = useState('');
     const [error, setError] = useState('');
-    // console.log(cast);
 
     useEffect(() => {
         fetchMovieCastAPI(moviesId)
