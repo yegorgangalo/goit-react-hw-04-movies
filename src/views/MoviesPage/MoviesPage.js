@@ -36,7 +36,7 @@ function MoviesPage() {
 
     const fetchMovieByQuery = (value, page) => {
         fetchQueryMoviesAPI(value, page)
-            .then(({ results, total_pages, total_results }) => {
+            .then(({ results, total_results }) => {
             if (!results.length) {
                   return Promise.reject(new Error(`There is no movie with name: ${value}`));
               }
@@ -70,15 +70,24 @@ function MoviesPage() {
                     placeholder="Search movies"
                     onChange={handleInputChange}
                 />
-                <Pagination
-                  activePage={activePage}
-                  itemsCountPerPage={20}
-                  totalItemsCount={totalMovies}
-                  pageRangeDisplayed={8}
-                  onChange={handlePageChange}
-                />
                 {status===PENDING && <ImSpinner9 size="36" className={s.iconSpin} />}
-                {status === RESOLVED && <MovieList movies={movies} />}
+                {status === RESOLVED && (<>
+                    <Pagination
+                      activePage={activePage}
+                      itemsCountPerPage={20}
+                      totalItemsCount={totalMovies}
+                      pageRangeDisplayed={10}
+                      onChange={handlePageChange}
+                    />
+                    <MovieList movies={movies} />
+                    <Pagination
+                      activePage={activePage}
+                      itemsCountPerPage={20}
+                      totalItemsCount={totalMovies}
+                      pageRangeDisplayed={10}
+                      onChange={handlePageChange}
+                    />
+                </>)}
             </main>)
 
 }

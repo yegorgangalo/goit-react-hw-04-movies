@@ -3,8 +3,8 @@ const { BASE_URL, API_KEY } = {
     API_KEY: '1b1c18abd6b8f6ca28c43d3db578a793',
 }
 
-export function fetchTrendMoviesAPI () {
-    const url = `${BASE_URL}/trending/movies/day?api_key=${API_KEY}`;
+export function fetchTrendMoviesAPI (page=1) {
+    const url = `${BASE_URL}/trending/movies/day?api_key=${API_KEY}&page=${page}`;
     return fetch(url)
         .then(response => {
             return response.ok ?
