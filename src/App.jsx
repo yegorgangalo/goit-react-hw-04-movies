@@ -16,7 +16,7 @@ function App() {
                     <HomePage/>
                 </Route>
 
-                <Route path="/movies/:moviesId">
+                <Route path="/movies/:slug">
                   <MovieDetailsView />
                 </Route>
 

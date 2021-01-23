@@ -17,6 +17,7 @@
     "react-scripts": "4.0.1",
     "react-toastify": "^6.2.0",
     "serve": "^11.3.2",
+    "slugify": "^1.4.6",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4",
     "yup": "^0.32.8"

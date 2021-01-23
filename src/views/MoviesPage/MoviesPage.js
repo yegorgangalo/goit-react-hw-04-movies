@@ -23,6 +23,7 @@ function MoviesPage() {
 
     const location = useLocation();
     const history = useHistory();
+    console.log('location', location.pathname);
 
     useEffect(() => {
     const query = new URLSearchParams(location.search).get('q');
