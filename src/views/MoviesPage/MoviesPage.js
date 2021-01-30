@@ -24,6 +24,7 @@ function MoviesPage() {
     const location = useLocation();
     const history = useHistory();
 
+    console.log(movies);
     useEffect(() => {
     const query = new URLSearchParams(location.search).get('q');
     if (!query) {

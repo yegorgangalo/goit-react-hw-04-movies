@@ -1,0 +1,31 @@
+.trailerList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -20px;
+}
+
+.trailerItem {
+  width: calc((100% - 4 * 20px) / 4);
+  margin-left: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.trailerName {
+  font-size: medium;
+  font-weight: normal;
+}
+
+.trailerBlock {
+  height: 15vw;
+  background-color: rgb(33, 33, 41);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trailerBlock svg {
+  width: 50px;
+  height: 50px;
+  fill: rgba(255, 255, 255, 0.582);
+}

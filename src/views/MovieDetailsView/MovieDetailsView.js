@@ -6,6 +6,7 @@ import s from './MovieDetailsView.module.css';
 import MovieDetails from '../../components/MovieDetails';
 const Cast = lazy(() => import('../../components/Cast' /* webpackChunkName: "cast" */));
 const Reviews = lazy(() => import('../../components/Reviews' /* webpackChunkName: "reviews" */));
+const Trailer = lazy(() => import('../../components/Trailer' /* webpackChunkName: "trailer" */));
 
 const { IDLE, PENDING, REJECTED, RESOLVED } = {
     IDLE: 'idle',
@@ -71,6 +72,11 @@ function MovieDetailsView() {
                             Reviews
                           </NavLink>
                         </li>
+                        <li>
+                          <NavLink to={{ pathname: `${url}/videos`, state: { from: location?.state?.from, label: location?.state?.label  }}}>
+                            Trailer
+                          </NavLink>
+                        </li>
                 </section>
 
                 <Suspense fallback={<span>Loading...</span>}>
@@ -79,6 +85,9 @@ function MovieDetailsView() {
                     </Route>
                     <Route path={`${path}/reviews`}>
                         <Reviews moviesId={moviesId}/>
+                    </Route>
+                    <Route path={`${path}/videos`}>
+                        <Trailer moviesId={moviesId}/>
                     </Route>
                 </Suspense>
             </>

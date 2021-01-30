@@ -52,3 +52,13 @@ export function fetchMovieReviewsAPI (movieID) {
                 Promise.reject(new Error(`There are no reviews`));
         })
 }
+
+export function fetchMovieTrailerAPI (movieID) {
+    const url = `${BASE_URL}/movie/${movieID}/videos?api_key=${API_KEY}`;
+    return fetch(url)
+        .then(response => {
+            return response.ok ?
+                response.json() :
+                Promise.reject(new Error(`There are no reviews`));
+        })
+}
