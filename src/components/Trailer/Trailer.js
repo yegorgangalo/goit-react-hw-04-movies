@@ -45,8 +45,7 @@ export default function Trailer({moviesId}) {
                                 frameBorder="0"
                                 allowFullScreen
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                className="trailer_referense"
-                            ></iframe>
+                            />
                         </Modal>)}
                         </li>)
 
