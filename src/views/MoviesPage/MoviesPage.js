@@ -34,8 +34,11 @@ function MoviesPage() {
     const currentPageNumber = Number(currentPage);
     setActivePage(currentPageNumber);
     setStatus(PENDING);
-    fetchMovieByQuery(query, currentPageNumber);
-    }, [location.search]);
+    // fetchMovieByQuery(query, currentPageNumber);
+    //як правильніше? через currentPageNumber чи activePage?
+    fetchMovieByQuery(query, activePage);
+    }, [location.search, activePage]);
+    // }, [location.search]);
 
     const fetchMovieByQuery = (value, page) => {
         fetchQueryMoviesAPI(value, page)

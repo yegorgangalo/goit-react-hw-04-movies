@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import MovieList from '../../components/MovieList';
 import { fetchTrendMoviesAPI } from '../../APIservice';
 import s from './HomePage.module.css';
@@ -19,8 +20,21 @@ function HomePage() {
     const [activePage, setActivePage] = useState(1);
     const [totalMovies, setTotalMovies] = useState(0);
 
+    const location = useLocation();
+    const history = useHistory();
+
     useEffect(() => {
+        const currentPage = new URLSearchParams(location.search).get('p');
+
+        const currentPageNumber = Number(currentPage);
+        currentPageNumber && setActivePage(currentPageNumber);
+        // let currentPageNumber = Number(currentPage);
+        // currentPageNumber = currentPageNumber ? currentPageNumber : 1;
+        // setActivePage(currentPageNumber);
+
         setStatus(PENDING);
+        // fetchTrendMoviesAPI(currentPageNumber)
+        //як правильніше? фетчити через currentPageNumber чи activePage? activePage робить лишній рендер, вірно?
         fetchTrendMoviesAPI(activePage)
             .then(({ results, total_results }) => {
                 if (!results.length) {
@@ -34,10 +48,12 @@ function HomePage() {
                 setError(error);
                 setStatus(REJECTED);
             })
-    }, [activePage])
+    }, [location.search, activePage])
+    // }, [location.search])
 
     const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
+        history.push({ ...location, search: `p=${pageNumber}` });
     }
 
     return (<main>
