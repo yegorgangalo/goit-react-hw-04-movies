@@ -20,19 +20,22 @@ function MoviesPage() {
     const [movies, setMovies] = useState([]);
     const [activePage, setActivePage] = useState(1);
     const [totalMovies, setTotalMovies] = useState(0);
+    const [inputQuery, setInputQuery] = useState('');
 
     const location = useLocation();
     const history = useHistory();
 
-    console.log(movies);
     useEffect(() => {
     const query = new URLSearchParams(location.search).get('q');
     if (!query) {
         return
     }
+    const currentPage = new URLSearchParams(location.search).get('p');
+    const currentPageNumber = Number(currentPage);
+    setActivePage(currentPageNumber);
     setStatus(PENDING);
-    fetchMovieByQuery(query, activePage);
-  }, [location.search, activePage]);
+    fetchMovieByQuery(query, currentPageNumber);
+    }, [location.search]);
 
     const fetchMovieByQuery = (value, page) => {
         fetchQueryMoviesAPI(value, page)
@@ -51,12 +54,14 @@ function MoviesPage() {
     }
 
     const handleInputChange = ({ target }) => {
-        history.push({ ...location, search: `q=${target.value}` });
+        setInputQuery(target.value);
+        history.push({ ...location, search: `q=${target.value}&p=${activePage}` });
     }
 
-    function handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
+    const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
+        const query = inputQuery ? inputQuery : new URLSearchParams(location.search).get('q');
+        history.push({ ...location, search: `q=${query}&p=${pageNumber}` });
     }
 
         return (

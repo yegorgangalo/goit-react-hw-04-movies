@@ -36,10 +36,9 @@ function HomePage() {
             })
     }, [activePage])
 
-    function handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
+    const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
-  }
+    }
 
     return (<main>
             {status===PENDING && <ImSpinner9 size="36" className={s.iconSpin} />}
