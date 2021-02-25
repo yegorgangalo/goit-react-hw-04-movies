@@ -14,7 +14,6 @@ export default function Trailer({moviesId}) {
     useEffect(() => {
         fetchMovieTrailerAPI(moviesId)
             .then(({ results }) => {
-                console.log(results[0]);
                 return results.length ?
                     setTrailerArray(results) :
                     Promise.reject(new Error('There are no trailers'));
