@@ -26,16 +26,16 @@ function HomePage() {
     useEffect(() => {
         const currentPage = new URLSearchParams(location.search).get('p');
 
-        const currentPageNumber = Number(currentPage);
-        currentPageNumber && setActivePage(currentPageNumber);
-        // let currentPageNumber = Number(currentPage);
-        // currentPageNumber = currentPageNumber ? currentPageNumber : 1;
-        // setActivePage(currentPageNumber);
+        // const currentPageNumber = Number(currentPage);
+        // currentPageNumber && setActivePage(currentPageNumber);
+        let currentPageNumber = Number(currentPage);
+        currentPageNumber = currentPageNumber ? currentPageNumber : 1;
+        setActivePage(currentPageNumber);
 
         setStatus(PENDING);
-        // fetchTrendMoviesAPI(currentPageNumber)
-        //як правильніше? фетчити через currentPageNumber чи activePage? activePage робить лишній рендер, вірно?
-        fetchTrendMoviesAPI(activePage)
+        //як правильніше? фетчити через currentPageNumber чи activePage? activePage робить лишній рендер і часом рендер не відбувається
+        // fetchTrendMoviesAPI(activePage)
+        fetchTrendMoviesAPI(currentPageNumber)
             .then(({ results, total_results }) => {
                 if (!results.length) {
                     return Promise.reject(new Error(`Something wrong. Reload the page, please.`));
@@ -48,8 +48,8 @@ function HomePage() {
                 setError(error);
                 setStatus(REJECTED);
             })
-    }, [location.search, activePage])
-    // }, [location.search])
+    }, [location.search])
+    // }, [location.search, activePage])
 
     const handlePageChange = (pageNumber) => {
         setActivePage(pageNumber);
